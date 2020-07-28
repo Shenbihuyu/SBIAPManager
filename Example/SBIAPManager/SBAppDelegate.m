@@ -7,12 +7,14 @@
 //
 
 #import "SBAppDelegate.h"
+#import <IAPManager.h>
 
 @implementation SBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
     return YES;
 }
 

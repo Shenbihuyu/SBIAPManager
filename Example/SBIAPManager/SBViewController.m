@@ -7,8 +7,10 @@
 //
 
 #import "SBViewController.h"
+#import <IAPManager.h>
 
-@interface SBViewController ()
+@interface SBViewController() <IAPManagerObserver>
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activetyView;
 
 @end
 
@@ -25,5 +27,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)buyAction:(id)sender {
+    
+}
+- (IBAction)restoreAction:(id)sender {
+    [IAPManager.shareInstance restoreBuy];
+}
+
 
 @end

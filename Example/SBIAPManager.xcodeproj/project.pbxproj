@@ -39,7 +39,7 @@
 /* Begin PBXFileReference section */
 		32E0C25046BF7D299E71064F /* Pods_SBIAPManager_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SBIAPManager_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36DCCA1267D8330B7384D1FA /* Pods_SBIAPManager_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SBIAPManager_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		40BBDEFACED51E9F8E4D2C38 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		40BBDEFACED51E9F8E4D2C38 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* SBIAPManager_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SBIAPManager_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -62,10 +62,10 @@
 		627598E932F78EE0FBAD6C18 /* Pods-SBIAPManager_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SBIAPManager_Tests.debug.xcconfig"; path = "Target Support Files/Pods-SBIAPManager_Tests/Pods-SBIAPManager_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D8F49C492751FDA6347497F9 /* SBIAPManager.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = SBIAPManager.podspec; path = ../SBIAPManager.podspec; sourceTree = "<group>"; };
+		D8F49C492751FDA6347497F9 /* SBIAPManager.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SBIAPManager.podspec; path = ../SBIAPManager.podspec; sourceTree = "<group>"; };
 		E71CF7E1AFE7A3A3AFE6E5C6 /* Pods-SBIAPManager_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SBIAPManager_Tests.release.xcconfig"; path = "Target Support Files/Pods-SBIAPManager_Tests/Pods-SBIAPManager_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E9D846E608DE495D440CB537 /* Pods-SBIAPManager_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SBIAPManager_Example.release.xcconfig"; path = "Target Support Files/Pods-SBIAPManager_Example/Pods-SBIAPManager_Example.release.xcconfig"; sourceTree = "<group>"; };
-		F5A2898C1FB9FCB34CCFFAD1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		F5A2898C1FB9FCB34CCFFAD1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		F99471FC0DA5D3F913468BBF /* Pods-SBIAPManager_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SBIAPManager_Example.debug.xcconfig"; path = "Target Support Files/Pods-SBIAPManager_Example/Pods-SBIAPManager_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,7 +103,6 @@
 				627598E932F78EE0FBAD6C18 /* Pods-SBIAPManager_Tests.debug.xcconfig */,
 				E71CF7E1AFE7A3A3AFE6E5C6 /* Pods-SBIAPManager_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -248,6 +247,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = waing;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = 6P665S2U8N;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -258,6 +260,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -449,7 +452,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -482,7 +485,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -494,6 +497,7 @@
 			baseConfigurationReference = F99471FC0DA5D3F913468BBF /* Pods-SBIAPManager_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 6P665S2U8N;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SBIAPManager/SBIAPManager-Prefix.pch";
 				INFOPLIST_FILE = "SBIAPManager/SBIAPManager-Info.plist";
@@ -510,6 +514,7 @@
 			baseConfigurationReference = E9D846E608DE495D440CB537 /* Pods-SBIAPManager_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 6P665S2U8N;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SBIAPManager/SBIAPManager-Prefix.pch";
 				INFOPLIST_FILE = "SBIAPManager/SBIAPManager-Info.plist";
