@@ -17,7 +17,7 @@ SBIAPManager is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'SBIAPManager',:git => ’https://github.com/Shenbihuyu/SBIAPManager.git‘
+pod 'SBIAPManager',:git => 'https://github.com/Shenbihuyu/SBIAPManager.git'
 ```
 
 ## Author
