@@ -103,29 +103,32 @@
 
 @interface IAPManager : NSObject
 
-/// 打印日志
 @property(nonatomic,assign)BOOL showLog;
-
-/// 用户id
+//用户id
 @property(nonatomic,copy)NSString *userId;
 
 + (instancetype)shareInstance;
 
-/// 事务监听委托
-/// @param observer 事务监听委托
-/// @param password App专用共享秘钥
+/**
+ observer 事务监听委托
+ password App专用共享秘钥
+ */
 - (void)addTransactionObserver:(id <IAPManagerObserver>)observer password:(NSString *)password;
 
-/// 移除事务监听观察
-/// 在applicationWillTerminate里实现
+/**
+ 移除事务监听观察
+ 在applicationWillTerminate里实现
+ */
 - (void)removeTransactionObserver;
 
-/// 在appstoreconnect配置的储值品项产品ID
-/// @param itemId 储值品项产品ID
+/**
+ itmeId 在appstoreconnect配置的储值品项产品ID
+ */
 - (void)buyItem:(NSString *)itemId;
 
-/// 恢复购买
+//恢复购买
 - (void)restoreBuy;
+
 
 @end
 

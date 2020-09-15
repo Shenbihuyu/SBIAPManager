@@ -19,6 +19,7 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
 
 @property(nonatomic,copy)NSString *itemId;
 @property(nonatomic,copy)NSString *password;
+@property(nonatomic,assign)BOOL isRestore;
 @property(NS_NONATOMIC_IOSONLY, weak, nullable)id<IAPManagerObserver> delegate;
 
 @end
@@ -33,6 +34,7 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
         single = [[super allocWithZone:NULL] init];
         single.showLog = NO;
     });
+    
     return single;
 }
 
@@ -47,6 +49,7 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
 - (void)addTransactionObserver:(id <IAPManagerObserver>)observer password:(NSString *)password{
     self.password = password;
     self.delegate = observer;
+    self.isRestore = NO;
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 }
 
@@ -58,6 +61,7 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
 
 //购买产品
 - (void)buyItem:(NSString *)itemId{
+    self.isRestore = NO;
     //是否允许内购
     if ([SKPaymentQueue canMakePayments]) {
         IAPLog(@"用户允许内购");
@@ -80,7 +84,8 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
 }
 
 //恢复购买
-- (void)restoreBuy {
+- (void)restoreBuy{
+    self.isRestore = YES;
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];//发起请求
 }
 
@@ -141,23 +146,24 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
 //监听购买结果
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
     IAPLog(@"transactions %@",transactions);
-    for(SKPaymentTransaction *tran in transactions){
+    if(self.isRestore){
+        SKPaymentTransaction *tran = transactions.lastObject;
         IAPLog(@"tran.transactionIdentifier %@",tran.transactionIdentifier);
         IAPLog(@"tran.payment.productIdentifier %@",tran.payment.productIdentifier);
         switch (tran.transactionState) {
             case SKPaymentTransactionStatePurchased:
                 IAPLog(@"交易完成");
                 [self completeTransaction:tran inSandbox:NO];
-
+                
                 break;
             case SKPaymentTransactionStatePurchasing:
                 IAPLog(@"商品添加进列表");
-
+                
                 break;
             case SKPaymentTransactionStateRestored:
                 IAPLog(@"已经购买过商品");
                 [self restoreTransaction:tran];
-
+                
                 break;
             case SKPaymentTransactionStateFailed:
                 IAPLog(@"交易失败");
@@ -165,18 +171,51 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
                 if([tran.payment.productIdentifier isEqualToString:self.itemId]){
                     [self fail:[NSDictionary dictionaryWithObjectsAndKeys:@1005,@"status",@"交易失败，用户取消交易或支付失败",@"message", nil]];
                 }
-
+                
                 break;
             default:
                 break;
+        }
+        self.isRestore = NO;
+    }else{
+        for(SKPaymentTransaction *tran in transactions){
+            IAPLog(@"tran.transactionIdentifier %@",tran.transactionIdentifier);
+            IAPLog(@"tran.payment.productIdentifier %@",tran.payment.productIdentifier);
+            switch (tran.transactionState) {
+                case SKPaymentTransactionStatePurchased:
+                    IAPLog(@"交易完成");
+                    [self completeTransaction:tran inSandbox:NO];
+
+                    break;
+                case SKPaymentTransactionStatePurchasing:
+                    IAPLog(@"商品添加进列表");
+
+                    break;
+                case SKPaymentTransactionStateRestored:
+                    IAPLog(@"已经购买过商品");
+                    [self restoreTransaction:tran];
+
+                    break;
+                case SKPaymentTransactionStateFailed:
+                    IAPLog(@"交易失败");
+                    [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+                    if([tran.payment.productIdentifier isEqualToString:self.itemId]){
+                        [self fail:[NSDictionary dictionaryWithObjectsAndKeys:@1005,@"status",@"交易失败，用户取消交易或支付失败",@"message", nil]];
+                    }
+
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
 
 //恢复失败
 - (void)paymentQueue:(SKPaymentQueue *) paymentQueue restoreCompletedTransactionsFailedWithError:(NSError *)error{
-
     IAPLog(@"-------restoreCompletedTransactionsFailedWithError----%@",error);
+    self.isRestore = NO;
+    [self fail:[NSDictionary dictionaryWithObjectsAndKeys:@1007,@"status",@"恢复购买失败",@"message", nil]];
 }
 
 //恢复完成
@@ -186,6 +225,7 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
         IAPLog(@"-------paymentQueueRestoreCompletedTransactionsFinished----%@",[SKPaymentQueue defaultQueue].transactions);
     }else{
         IAPLog(@"恢复购买失败，用户没有购买历史记录");
+        self.isRestore = NO;
         [self fail:[NSDictionary dictionaryWithObjectsAndKeys:@1007,@"status",@"恢复购买失败，用户没有购买历史记录",@"message", nil]];
     }
 }
