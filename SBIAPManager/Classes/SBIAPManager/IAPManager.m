@@ -147,6 +147,11 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
     IAPLog(@"transactions %@",transactions);
     if(self.isRestore){
+        for(SKPaymentTransaction *tran in transactions){
+            if(tran != transactions.lastObject){
+                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+            }
+        }
         SKPaymentTransaction *tran = transactions.lastObject;
         IAPLog(@"tran.transactionIdentifier %@",tran.transactionIdentifier);
         IAPLog(@"tran.payment.productIdentifier %@",tran.payment.productIdentifier);
