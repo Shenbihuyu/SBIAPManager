@@ -173,9 +173,7 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
             case SKPaymentTransactionStateFailed:
                 IAPLog(@"交易失败");
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-                if([tran.payment.productIdentifier isEqualToString:self.itemId]){
-                    [self fail:[NSDictionary dictionaryWithObjectsAndKeys:@1005,@"status",@"交易失败，用户取消交易或支付失败",@"message", nil]];
-                }
+                [self fail:[NSDictionary dictionaryWithObjectsAndKeys:@1005,@"status",@"交易失败，用户取消交易或支付失败",@"message", nil]];
                 
                 break;
             default:
@@ -204,9 +202,7 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
                 case SKPaymentTransactionStateFailed:
                     IAPLog(@"交易失败");
                     [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-                    if([tran.payment.productIdentifier isEqualToString:self.itemId]){
-                        [self fail:[NSDictionary dictionaryWithObjectsAndKeys:@1005,@"status",@"交易失败，用户取消交易或支付失败",@"message", nil]];
-                    }
+                    [self fail:[NSDictionary dictionaryWithObjectsAndKeys:@1005,@"status",@"交易失败，用户取消交易或支付失败",@"message", nil]];
 
                     break;
                 default:
@@ -304,18 +300,14 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
                 //关闭事务
                 [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
             }else{
-                if([productId isEqualToString:self.itemId]){
-                    [self fail:[NSDictionary dictionaryWithObjectsAndKeys:dic[@"status"],@"status",@"服务器验证失败",@"message", nil]];
-                }
+                [self fail:[NSDictionary dictionaryWithObjectsAndKeys:dic[@"status"],@"status",@"服务器验证失败",@"message", nil]];
                 //关闭事务
                 [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
             }
         } else {
             // 网络访问失败
             IAPLog(@"服务器验证失败");
-            if([productId isEqualToString:self.itemId]){
-                [self fail:[NSDictionary dictionaryWithObjectsAndKeys:@1006,@"status",@"请求服务器验证失败",@"message", nil]];
-            }
+            [self fail:[NSDictionary dictionaryWithObjectsAndKeys:@1006,@"status",@"请求服务器验证失败",@"message", nil]];
             return;
         }
     }];
