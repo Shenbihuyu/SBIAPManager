@@ -20,8 +20,8 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
 @property(nonatomic,copy)NSString *itemId;
 @property(nonatomic,copy)NSString *password;
 @property(nonatomic,assign)BOOL isRestore;
-@property(NS_NONATOMIC_IOSONLY, weak, nullable)id<IAPManagerObserver> delegate;
-
+@property(nonatomic,weak, nullable)id<IAPManagerObserver> delegate;
+@property(nonatomic,strong)SKProductsRequest *skRequest;
 @end
 
 @implementation IAPManager
@@ -71,11 +71,11 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
         NSSet *nsset = [NSSet setWithArray:product];
 
         //初始化请求
-        SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
-        request.delegate = self;
+        self.skRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
+        self.skRequest.delegate = self;
 
         //开始请求
-        [request start];
+        [self.skRequest start];
 
     }else{
         IAPLog(@"用户不允许内购");
