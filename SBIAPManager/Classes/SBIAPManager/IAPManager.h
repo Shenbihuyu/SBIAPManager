@@ -32,6 +32,7 @@
      "subscription_group_identifier" = 20574112;
      "transaction_id" = 1000000594171841;
      "web_order_line_item_id" = 1000000048349723;
+     "sandbox" = "0";
  }
  
  消耗性返回数据：
@@ -47,6 +48,7 @@
      "purchase_date_pst" = "2019-11-19 18:21:30 America/Los_Angeles";
      quantity = 1;
      "transaction_id" = 1000000594609766;
+     "sandbox" = "0";
  }
  
  字段说明：
@@ -61,6 +63,7 @@
  purchase_date 最新的购买时间
  purchase_date_ms 最新的购买时间毫秒
  purchase_date_pst 最新的购买时间（太平洋的时间）
+ sandbox 是否沙盒储值（1为沙盒，0为正式）
  
  */
 - (void)iapPaymentSuccess:(NSDictionary *)result;

@@ -288,11 +288,11 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
             }else if ([[dic objectForKey:@"status"] intValue] == 0){
                 if(dic[@"latest_receipt_info"] != nil){
                     for (NSDictionary *info in dic[@"latest_receipt_info"]) {
-                        [self success:info];
+                        [self success:info sandbox:sandbox];
                     }
                 }else if (dic[@"receipt"][@"in_app"] != nil){
                     NSArray *inapps = dic[@"receipt"][@"in_app"];
-                    [self success:[inapps lastObject]];
+                    [self success:[inapps lastObject] sandbox:sandbox];
                 }
                 else{
                     [self fail:[NSDictionary dictionaryWithObjectsAndKeys:@1008,@"status",@"无效订单",@"message", nil]];
@@ -324,9 +324,16 @@ printf("IAPManager %s\n",[[NSString stringWithFormat:__VA_ARGS__]UTF8String]);\
 }
 
 #pragma mark --成功失败处理
-- (void)success:(NSDictionary *)dic{
+- (void)success:(NSDictionary *)dic sandbox:(BOOL)isSandbox{
     if([self.delegate respondsToSelector:@selector(iapPaymentSuccess:)]){
-        [self.delegate iapPaymentSuccess:dic];
+        NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:dic];
+        if(isSandbox){
+            [result setValue:@"1" forKey:@"sandbox"];
+        }else{
+            [result setValue:@"0" forKey:@"sandbox"];
+        }
+        
+        [self.delegate iapPaymentSuccess:result];
     }
 }
 
